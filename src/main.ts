@@ -1,55 +1,39 @@
-// Definimos una interfaz para el estado de nuestra aplicación
-interface AppState {
-    currentNumber: number;
-  }
-  
-  // Función para renderizar el estado actual en el navegador
-  function render(state: AppState) {
-    const numberDisplay = document.querySelector(".numero-turno");
-    const textDisplay = document.querySelector(".texto-turno");
-    if (numberDisplay && textDisplay) {
-      numberDisplay.textContent = state.currentNumber.toString().padStart(2, "0");
-      textDisplay.textContent = `Por favor, acérquese al mostrador`;
-    }
-  }
-  
-  // Función principal para inicializar la aplicación
-  function init() {
-    const initialState: AppState = {
-      currentNumber: 1,
-    };
-  
-    render(initialState);
-  
-    const resetButton = document.getElementById("reset-button");
-    const prevButton = document.getElementById("prev-button");
-    const nextButton = document.getElementById("next-button");
-  
-    if (resetButton && prevButton && nextButton) {
-      resetButton.addEventListener("click", () => {
-        initialState.currentNumber = 1;
-        render(initialState);
-      });
-  
-      prevButton.addEventListener("click", () => {
-        if (initialState.currentNumber > 1) {
-          initialState.currentNumber--;
-          render(initialState);
-        }
-      });
-  
-      nextButton.addEventListener("click", () => {
-        if (initialState.currentNumber < 99) {
-          initialState.currentNumber++;
-          render(initialState);
-        }
-      });
-    }
-  }
-  
-  // Llamamos a la función init para comenzar la aplicación cuando se carga la página
-  window.onload = () => {
-    init();
+window.onload = () => {
+  const turnoElement = document.querySelector('.numero-turno') as HTMLElement;
+  const anteriorBtn = document.getElementById('anterior') as HTMLButtonElement;
+  const siguienteBtn = document.getElementById('siguiente') as HTMLButtonElement;
+  const resetBtn = document.getElementById('reset') as HTMLButtonElement;
+  const inputNumero = document.getElementById('input-numero') as HTMLInputElement;
+
+  let turno = 1;
+
+  const actualizarTurno = (nuevoTurno: number) => {
+    turno = nuevoTurno;
+    const turnoFormateado = turno.toString().padStart(2, '0');
+    turnoElement.textContent = turnoFormateado;
   };
 
-  
+  anteriorBtn.onclick = () => {
+    if (turno > 1) {
+      actualizarTurno(turno - 1);
+    }
+  };
+
+  siguienteBtn.onclick = () => {
+    actualizarTurno(turno + 1);
+  };
+
+  resetBtn.onclick = () => {
+    actualizarTurno(1);
+  };
+
+  inputNumero.onchange = () => {
+    const nuevoTurno = parseInt(inputNumero.value);
+    if (!isNaN(nuevoTurno) && nuevoTurno >= 1) {
+      actualizarTurno(nuevoTurno);
+    }
+  };
+};
+
+
+

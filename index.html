@@ -8,11 +8,23 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <div class="turno-display">
-      <h1 class="numero-turno">01</h1>
-      <p class="texto-turno">Por favor, acérquese al mostrador</p>
-    </div>
-    <script type="module" src="/src/main.ts"></script>
+    <body>
+      <div class="turno-display">
+        <h1 class="numero-turno">01</h1>
+        <p class="texto-turno">Por favor, acérquese al mostrador</p>
+        <div>
+          <button id="anterior">Anterior</button>
+          <button id="siguiente">Siguiente</button>
+          <button id="reset">Reset</button>
+        </div>
+        <label for="input-numero">Introducir número:</label>
+        <input type="number" id="input-numero" min="1" value="1">
+      </div>
+      <script type="module" src="/src/main.ts"></script>
+    </body>
   </body>
 </html>
+
+
+
 
